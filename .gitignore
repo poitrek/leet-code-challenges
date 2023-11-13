@@ -1,0 +1,12 @@
+# Executables
+*.exe
+*.out
+
+*.stackdump
+
+.templates/
+.vscode/
+
+*.xlsx
+
+template.config.js

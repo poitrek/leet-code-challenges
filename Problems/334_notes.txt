@@ -1,0 +1,21 @@
+20 100 90 10 12 xx yy zz ww 13
+
+thesis (EDIT: FALSE): 
+
+exist i,j,k: i < j < k, t[i] < t[j] < t[k]
+==> exist u, v: u < v, (t[u] < t[u+1] < t[v]) or
+	(t[u] < t[v] < t[v+1])
+
+example:
+10 60 50 40 30 15 5 4 3 2 20
+triplet 10-15-20
+
+simpler (TRUE): if exist i, j: i < j, t[i] < t[j] then
+	exist k: t[k] < t[k+1]
+
+proof: let k' = index_min(t[i..j]). k' != j, because t[j] > t[i]. k' < j. for any x > k t[x] >= t[k]. Let k := min{k'+1..j : t[k] > t[k']}. t[k] > t[k-1]. QED.
+
+
+40 80 70 30 10 | 60 50 40 30 15 5 4 3 2 20
+
+record: pair (t[i], t[j]) with smallest t[j], and smallest t[m] (?)
