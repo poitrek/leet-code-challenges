@@ -36,6 +36,12 @@ are in it too.
 
 */
 
+
+class WordFinder {
+public:
+	
+};
+
 struct WordNode {
 	string word;
 	vector<WordNode*> children;
@@ -90,14 +96,18 @@ public:
 	void add(string word) {
 		WordNode new_node = { word };
 		nodes.push_back(new_node);
-		// for (auto node : nodes) {
-		// 	if (is_substring(word, node.word)) {
-		// 		if (word.size())
-		// 	}
-		// 		connect(new_node, node);
-		// 	else if (is_substring(node.word, word))
-		// 		connect(node, new_node);
-		// }
+		for (auto &node : nodes) {
+			switch (compare(word, node.word)) {
+			case FIRST_SUB:
+
+			}
+			if (is_substring(word, node.word)) {
+				if (word.size())
+			}
+				connect(new_node, node);
+			else if (is_substring(node.word, word))
+				connect(node, new_node);
+		}
 	}
 
 	static void connect(WordNode &child, WordNode &parent) {
@@ -147,15 +157,20 @@ void test_compare() {
 	cout << "test_compare OK" << endl;
 }
 
-int main() {
+void test_all() {
 	test_is_substring();
 	test_is_reversed();
 	test_compare();
+	cout << "test_all OK" << endl;
+}
+
+int main() {
+	test_all();
 	// int n;
 	// cin >> n;
 	// vector<string> words(n);
 	// for (int i = 0; i < n; i++)
 	// 	cin >> words[i];
-	
+	cout << "The thrill of gambling has existed in the entire history of mankind." << endl;	
 	return 0;
 }
