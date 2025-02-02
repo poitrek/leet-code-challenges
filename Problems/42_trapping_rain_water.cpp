@@ -5,6 +5,68 @@
 
 using namespace std;
 
+
+/**
+ * @brief Two pointers technique
+ * Time: O(N) (Beats 100%)
+ *  Space: O(1)
+ */
+class Solution2 {
+public:
+	int trap(vector<int>& height) {
+		/// LM - Left Max, RM - Right Max
+		int LM_pos = 0;
+		int RM_pos = height.size() - 1;
+		int LM = height[LM_pos];
+		int RM = height[RM_pos];
+		int water = 0;
+		int I_pos;
+		bool from_left = (LM < RM);
+		I_pos = from_left ? LM_pos : RM_pos;
+		while (LM_pos != RM_pos) {
+			if (from_left) {
+				I_pos++;
+				if (I_pos == RM_pos)
+					break;
+				if (height[I_pos] > LM) {
+					LM_pos = I_pos;
+					LM = height[I_pos];
+					if (LM > RM) {
+						from_left = false;
+						I_pos = RM_pos;
+					}
+				}
+				else {
+					water += LM - height[I_pos];
+				}
+			}
+			else {
+				I_pos--;
+				if (I_pos == LM_pos)
+					break;
+				if (height[I_pos] > RM) {
+					RM_pos = I_pos;
+					RM = height[I_pos];
+					if (RM > LM) {
+						from_left = true;
+						I_pos = LM_pos;
+					}
+				}
+				else {
+					water += RM - height[I_pos];
+				}
+			}
+		}
+		return water;
+	}
+};
+
+
+/**
+ * @brief Solution with a stack
+ * Time: probably O(N^2)
+ * Space: O(N)
+ */
 class Solution {
 public:
 	struct Step {
@@ -52,6 +114,8 @@ public:
 };
 
 int main() {
-
+	vector<int> v {0, 1, 10, 7, 13, 5, 5, 19, 7, 1, 20, 4, 5, 12, 6, 3, 9, 15, 20, 17, 16, 10, 11, 9, 13, 5, 1, 6};
+	// vector<int> v {0, 6, 2, 4, 5, 3, 1, 7, 0};
+	cout << Solution2().trap(v) << endl;
 	return 0;
 }
