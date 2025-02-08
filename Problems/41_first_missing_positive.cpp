@@ -34,10 +34,45 @@ public:
     }
 };
 
+template<typename T>
+class OneIndexedVector : public std::vector<T> {
+public:
+	T& operator[] (size_t pos) {
+		return std::vector<T>::operator[](pos - 1);
+	}
+};
+
+class Solution2 {
+    int firstMissingPositive(vector<int>& nums) {
+        for (int start = 0; start < nums.size(); start++) {
+            int idx = nums[start];
+			while (idx > 0 && idx <= nums.size() && nums[idx] != idx) {
+				int new_idx = nums[idx];
+				nums[idx] = idx;
+				idx = new_idx;
+			}
+        }
+		/// Guard to avoid checking the end of the vector
+		nums.push_back(0);
+        int idx = 1;
+        while (nums[idx] == idx)
+            idx++;
+        return idx;
+    }
+};
+
 int main() {
+	OneIndexedVector<int> myvector;
+	myvector.push_back(23);
+	myvector.push_back(56);
+	// myvector[1] = 99;
+	for (int x : myvector)
+		cout << x << " ";
+	cout << "\n";
+	cout << myvector[2] << "\n";
 	// vector<int> v {3, 5, 0, 1}; // 0 1 0 3
-	vector<int> v {3, 4, -1, 1}; // 1 4 3 4
-	cout << Solution().firstMissingPositive(v) << endl;
-	cout << v << endl;
+	// vector<int> v {3, 4, -1, 1}; // 1 4 3 4
+	// cout << Solution().firstMissingPositive(v) << endl;
+	// cout << v << endl;
 	return 0;
 }
