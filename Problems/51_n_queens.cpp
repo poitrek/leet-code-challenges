@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "vector_print.h"
+#include "timer.hpp"
 
 using namespace std;
 
@@ -73,7 +74,28 @@ public:
 	}
 };
 
+void printBoard(const vector<string>& board) {
+	for (const auto& row : board) {
+		for (char c : row) {
+			cout << c << ' ';
+		}
+		cout << '\n';
+	}
+	cout << '\n';
+}
+
 int main() {
-	cout << Solution().solveNQueens(5) << endl;
+	auto boards = Solution().solveNQueens(5);
+	for (int i = 0; i < boards.size(); i++) {
+		cout << i+1 << ":\n";
+		printBoard(boards[i]);
+	}
+	// for (int i = 8; i <= 15; i++) {
+	// 	Timer::start();
+	// 	auto result = Solution().solveNQueens(i);
+	// 	auto duration_seconds = Timer::get_seconds();
+	// 	cout << i << "-queens: " << result.size() << " solutions\n";
+	// 	cout << "calculation time: " << duration_seconds << "\n";
+	// }
 	return 0;
 }
